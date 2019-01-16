@@ -1,0 +1,3 @@
+function getStudent(){
+    return "student";
+}

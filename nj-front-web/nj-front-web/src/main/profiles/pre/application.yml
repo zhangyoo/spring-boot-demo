@@ -1,0 +1,9 @@
+env: pre
+
+server:
+  port: 8080
+  context-path: /nj-front-web
+
+logging:
+  config:
+    classpath: logback-spring.xml
