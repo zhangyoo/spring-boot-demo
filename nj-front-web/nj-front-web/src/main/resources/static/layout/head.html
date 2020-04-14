@@ -1,0 +1,34 @@
+<img src="/images/logo.gif" width="145" height="85" alt="" class="sectionLogo-A1 sectionLogo-A1-1 logoPic"/>
+<div class="sectionNav-A1 sectionFloat-A1">
+	<ul class="clear" id="topNav">
+		<li class="cur"><a href="">首页</a></li>
+		<li class=""><a href="">用户管理</a></li>
+		<li class=""><a href="">商家管理</a></li>
+		<li class=""><a href="">商品管理</a></li>
+		<li class=""><a href="">出入库管理</a></li>
+<!--		<li class=""><a href="">收支管理</a></li>-->
+	</ul>
+</div>
+<div class="sectionNav-A2">
+	<ul class="clear">
+		<li class="linkBlue">
+			<strong class="welcome mr10">欢迎，</strong>
+			<strong class="mr10" id="loginUser">test</strong>
+			<a href="logout" class="mr10 logOutBtn">退出登陆</a>
+		</li>
+	</ul>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.logoPic').attr("src", ctx + "/images/logo.gif");
+		$('.logOutBtn').attr("href", ctx + "/logout");
+		$('ul#topNav').find('li').eq(0).find('a').attr("href" ,ctx + '/index');
+		$('ul#topNav').find('li').eq(1).find('a').attr("href" ,ctx + '/user/index');
+		$('ul#topNav').find('li').eq(2).find('a').attr("href" ,ctx + '/company/index');
+		$('ul#topNav').find('li').eq(3).find('a').attr("href" ,ctx + '/goods/goodsIndex');
+		$('ul#topNav').find('li').eq(4).find('a').attr("href" ,ctx + '/goods/goodsInIndex');
+		// $('ul#topNav').find('li').eq(5).find('a').attr("href" ,ctx + '/pay/index');
+		initNavStatus();
+		$('#loginUser').html($("#getUserName").val());
+	})
+</script>

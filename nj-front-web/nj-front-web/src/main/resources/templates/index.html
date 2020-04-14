@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>库存管理系统</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/bootstrap-responsive.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/base.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" th:src="@{/js/jquery-1.7.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/use.js}"></script>
+<link rel="import" th:href="@{/layout/head.html}" id="headHtml"/>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body class="sectionContainer-A1">
+<div class="container-fluid">
+	<input type="hidden" id="getUserName" th:value="${session.USER_INFO.userName}" />
+	<div class="sectionHeader-A1 p-rel" id="headNav">
+	
+	</div>
+	
+	<div class="sectionWrap-A4 container-fluid">
+		<div class="row-fluid">
+			<div class="sectionWrap-A2 span2" id="leftNav">
+				<div class="p10">
+					<div class="sectionMenu-A1">
+						<ul>
+							<li class="cur mb5"><a href="###">概况</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="sectionWrap-A3 span10">
+				<div class="sectionTitle-A mb10">
+					<h2>欢迎</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//初始化导航
+		function initNavStatus(){
+			$("#topNav").find("li.cur").removeClass("cur");
+			$("#topNav").find("li").eq(0).addClass("cur");
+		}
+
+	</script>
+	
+</div>
+
+</body>
+</html>

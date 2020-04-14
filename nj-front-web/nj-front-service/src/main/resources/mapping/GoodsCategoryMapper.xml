@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.js.nj.dao.GoodsCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.js.nj.entity.GoodsCategory" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="GOODS_CATEGORY_CODE" property="goodsCategoryCode" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="PARENT_GOODS_CATEGORY_CODE" property="parentGoodsCategoryCode" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GOODS_CATEGORY_CODE, CATEGORY_NAME, PARENT_GOODS_CATEGORY_CODE, IS_DEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_goods_category
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ims_goods_category
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.js.nj.entity.GoodsCategory" >
+    insert into ims_goods_category (ID, GOODS_CATEGORY_CODE, CATEGORY_NAME, 
+      PARENT_GOODS_CATEGORY_CODE, IS_DEL)
+    values (#{id,jdbcType=BIGINT}, #{goodsCategoryCode,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, 
+      #{parentGoodsCategoryCode,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.js.nj.entity.GoodsCategory" >
+    insert into ims_goods_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="goodsCategoryCode != null" >
+        GOODS_CATEGORY_CODE,
+      </if>
+      <if test="categoryName != null" >
+        CATEGORY_NAME,
+      </if>
+      <if test="parentGoodsCategoryCode != null" >
+        PARENT_GOODS_CATEGORY_CODE,
+      </if>
+      <if test="isDel != null" >
+        IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsCategoryCode != null" >
+        #{goodsCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentGoodsCategoryCode != null" >
+        #{parentGoodsCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.js.nj.entity.GoodsCategory" >
+    update ims_goods_category
+    <set >
+      <if test="goodsCategoryCode != null" >
+        GOODS_CATEGORY_CODE = #{goodsCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentGoodsCategoryCode != null" >
+        PARENT_GOODS_CATEGORY_CODE = #{parentGoodsCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        IS_DEL = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.js.nj.entity.GoodsCategory" >
+    update ims_goods_category
+    set GOODS_CATEGORY_CODE = #{goodsCategoryCode,jdbcType=VARCHAR},
+      CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+      PARENT_GOODS_CATEGORY_CODE = #{parentGoodsCategoryCode,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=BIT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getGoodsCateLsit" resultMap="BaseResultMap" parameterType="com.js.nj.dto.RequestParamDto" >
+    select
+    <include refid="Base_Column_List" />
+    from ims_goods_category
+    where 1=1
+    <if test="keyword != null">
+      AND CATEGORY_NAME LIKE CONCAT('%',#{keyword},'%')
+    </if>
+  </select>
+</mapper>

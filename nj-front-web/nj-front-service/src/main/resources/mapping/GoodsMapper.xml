@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.js.nj.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.js.nj.entity.Goods" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="GOODS_CODE" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_CATEGORY_CODE" property="goodsCategoryCode" jdbcType="VARCHAR" />
+    <result column="COMPANY_CODE" property="companyCode" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="GOODS_NUM" property="goodsNum" jdbcType="BIGINT" />
+    <result column="GOODS_DESC" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DEL" property="isDel" jdbcType="BIT" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GOODS_CODE, GOODS_NAME, GOODS_CATEGORY_CODE, COMPANY_CODE, PRICE, GOODS_NUM, 
+    GOODS_DESC, CREATE_TIME, UPDATE_TIME, IS_DEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_goods
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ims_goods
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.js.nj.entity.Goods" >
+    insert into ims_goods (ID, GOODS_CODE, GOODS_NAME, 
+      GOODS_CATEGORY_CODE, COMPANY_CODE, PRICE, 
+      GOODS_NUM, GOODS_DESC, CREATE_TIME, 
+      UPDATE_TIME, IS_DEL)
+    values (#{id,jdbcType=BIGINT}, #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsCategoryCode,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{goodsNum,jdbcType=BIGINT}, #{goodsDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.js.nj.entity.Goods" >
+    insert into ims_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="goodsCode != null" >
+        GOODS_CODE,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="goodsCategoryCode != null" >
+        GOODS_CATEGORY_CODE,
+      </if>
+      <if test="companyCode != null" >
+        COMPANY_CODE,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="goodsNum != null" >
+        GOODS_NUM,
+      </if>
+      <if test="goodsDesc != null" >
+        GOODS_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDel != null" >
+        IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCategoryCode != null" >
+        #{goodsCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=BIGINT},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.js.nj.entity.Goods" >
+    update ims_goods
+    <set >
+      <if test="goodsCode != null" >
+        GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCategoryCode != null" >
+        GOODS_CATEGORY_CODE = #{goodsCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null" >
+        GOODS_NUM = #{goodsNum,jdbcType=BIGINT},
+      </if>
+      <if test="goodsDesc != null" >
+        GOODS_DESC = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        IS_DEL = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.js.nj.entity.Goods" >
+    update ims_goods
+    set GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      GOODS_CATEGORY_CODE = #{goodsCategoryCode,jdbcType=VARCHAR},
+      COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DECIMAL},
+      GOODS_NUM = #{goodsNum,jdbcType=BIGINT},
+      GOODS_DESC = #{goodsDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DEL = #{isDel,jdbcType=BIT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getGoodsLsit" resultMap="BaseResultMap" parameterType="com.js.nj.dto.RequestParamDto" >
+    select
+    ig.ID, ig.GOODS_NAME, ig.PRICE, ig.GOODS_NUM,
+    ig.GOODS_DESC, ig.CREATE_TIME
+    ,igc.CATEGORY_NAME,ic.COMPANY_NAME
+    from ims_goods as ig
+    left join ims_goods_category as igc on ig.GOODS_CATEGORY_CODE = igc.GOODS_CATEGORY_CODE
+    left join ims_company as ic on ig.COMPANY_CODE = ic.COMPANY_CODE
+    where 1=1
+    <if test="keyword != null">
+      AND ig.GOODS_NAME LIKE CONCAT('%',#{keyword},'%')
+    </if>
+  </select>
+</mapper>

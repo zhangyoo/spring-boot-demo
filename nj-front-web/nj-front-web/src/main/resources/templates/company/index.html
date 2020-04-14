@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>库存管理系统-商家管理</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/bootstrap-responsive.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/base.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" th:src="@{/js/jquery-1.7.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/js/use.js}"></script>
+<link rel="import" th:href="@{/layout/head.html}" id="headHtml"/>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body class="sectionContainer-A1">
+<div class="container-fluid">
+	<input type="hidden" id="getUserName" th:value="${session.USER_INFO.userName}" />
+	<div class="sectionHeader-A1 p-rel" id="headNav">
+	
+	</div>
+	
+	<div class="sectionWrap-A4 container-fluid">
+		<div class="row-fluid">
+			<div class="sectionWrap-A2 span2" id="leftNav">
+				<div class="p10">
+					<div class="sectionMenu-A1">
+						<ul>
+							<li class="cur mb5"><a th:href="@{/company/index}">商家管理</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="sectionWrap-A3 span10">
+				<div class="sectionTitle-A mb10">
+					<h2>商家管理</h2>
+				</div>
+				<div class="clear mb10">
+					<div class="sectionBun-A2 L">
+						<a th:href="@{/company/toAdd}" class="btn btn-primary">新增</a>
+					</div>
+					<div class="sectionSearch-A1 sectionForm-A1 sectionForm-A1-2 R sectionFloat-A1">
+						<form th:action="@{/company/index}" method="get">
+							<ul class="clear">
+								<li>
+									<label>关键词</label>
+									<input type="text" th:value="${keyword}" name="keyword" class="text"/>
+								</li>
+								<li class="button">
+									<input class="btn btn-large btn-primary" type="submit" value="查询"/>
+								</li>
+							</ul>				      		                   
+						</form>
+					</div>
+				</div>
+				
+				<div class="sectionTable-A1 mb10">
+					<table class="table table table-hover">
+						<thead>
+							<tr>
+								<th class="col-1" width="10%">商家名称</th>
+								<th class="col-2">电话</th>
+								<th class="col-3" width="10%">邮箱</th>
+								<th class="col-4" width="10%">地址</th>
+								<th class="col-5" width="15%">创建时间</th>
+								<th class="col-6" width="10%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="" th:each="company : ${data}">
+								<td class="col-1" th:text="${company.companyName}"></td>
+								<td class="col-2" th:text="${company.telephone}"></td>
+								<td class="col-3" th:text="${company.mail}"></td>
+								<td class="col-4" th:text="${company.address}"></td>
+								<td class="col-5" th:text="${#dates.format(company.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+								<td class="col-6">
+									<a th:href="@{/company/toEdit(id=${company.id})}"><img class="mr10 icon" th:src="@{/images/update.png}" width="24" height="24" alt="编辑"/></a>
+									<a href="javascript:void(0);" class="deleteObj"><img class="icon" th:src="@{/images/delete.png}" width="24" height="24" alt="删除"/></a>
+									<input type="hidden" class="deleteObjId" th:value="${company.id}" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="sectionFoot-B1">
+					<div class="sectionFloat-A1">
+						<ul class="clear">
+							<li class="R">
+								<div class="sectionPageing-A1">
+									<span class="count"><b th:text="'共 '+ ${pageInfo.getPages()}+ ' 页'"></b></span>
+									<span class="linkBlue border"><a th:href="@{/company/index(pageNum=${1},keyword=${keyword})}">首页</a></span>
+									<span class="disabled border"><a th:href="@{/company/index(pageNum=${pageInfo.getPrePage()},keyword=${keyword})}">&lt;前页</a></span>
+									<span class="border current" th:text="'第 '+ ${pageInfo.getPageNum()}+ ' 页'"></span>
+									<span class="linkBlue border"><a th:href="@{/company/index(pageNum=${pageInfo.getNextPage()},keyword=${keyword})}">后页&gt;</a></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//初始化导航
+		function initNavStatus(){
+			$("#topNav").find("li.cur").removeClass("cur");
+			$("#topNav").find("li").eq(2).addClass("cur");
+		}
+
+		$(function(){
+			//删除数据
+			$('.deleteObj').on('click',function(){
+				var id = $(this).parent().find('.deleteObjId').val();
+				if (!confirm("确认要删除？")) {
+					return ;
+				}
+				$.ajax({
+					url: ctx + '/company/delete.json',
+					type:'post',
+					dataType:'json',
+					data:{
+						id: id
+					},
+					success:function (data) {
+						showModal(data.msg);
+						if(data.code == 0){
+							$('#myModal').attr("redirect","1");
+						}
+
+					}
+				})
+			})
+			//关闭弹出框
+			$('.hideModal').on('click',function(){
+				var redirectUrl = null;
+				var isRedirect = $('#myModal').attr("redirect");
+				if(isRedirect > 0){
+					redirectUrl = '/company/index';
+				}
+				hideModal(redirectUrl)
+			})
+
+		})
+
+	</script>
+	
+</div>
+<!-- 弹出层 -->
+<div id="myModal" class="modal hide fade in" tabindex="-1" role="dialog" redirect="0" aria-labelledby="myModalLabel" aria-hidden="false">
+	<div class="modal-header">
+		<button type="button" class="close hideModal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">信息提示</h3>
+	</div>
+	<div class="modal-body">
+		删除中...
+	</div>
+	<div class="modal-footer">
+		<button class="btn hideModal">Close</button>
+
+	</div>
+</div>
+<!-- 弹出层 end-->
+</body>
+</html>

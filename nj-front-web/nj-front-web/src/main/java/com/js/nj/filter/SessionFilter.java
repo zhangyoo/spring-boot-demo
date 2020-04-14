@@ -38,7 +38,7 @@ public class SessionFilter implements Filter {
         if(!needFilter){
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            User user = (User)session.getAttribute(session.getId());
+            User user = (User)session.getAttribute("USER_INFO");
             if(user != null){
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {

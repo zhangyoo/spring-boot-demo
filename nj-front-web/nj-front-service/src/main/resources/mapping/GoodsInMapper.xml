@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.js.nj.dao.GoodsInMapper" >
+  <resultMap id="BaseResultMap" type="com.js.nj.entity.GoodsIn" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="GOODS_CODE" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="IN_GOODS_NUM" property="inGoodsNum" jdbcType="BIGINT" />
+    <result column="IN_TIME" property="inTime" jdbcType="TIMESTAMP" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="CURRENT_GOODS_LEFT_NUM" property="currentGoodsLeftNum" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GOODS_CODE, IN_GOODS_NUM, IN_TIME, CURRENT_GOODS_LEFT_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_goods_in
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ims_goods_in
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.js.nj.entity.GoodsIn" >
+    insert into ims_goods_in (ID, GOODS_CODE, IN_GOODS_NUM, 
+      IN_TIME, CURRENT_GOODS_LEFT_NUM)
+    values (#{id,jdbcType=BIGINT}, #{goodsCode,jdbcType=VARCHAR}, #{inGoodsNum,jdbcType=BIGINT}, 
+      #{inTime,jdbcType=TIMESTAMP}, #{currentGoodsLeftNum,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.js.nj.entity.GoodsIn" >
+    insert into ims_goods_in
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="goodsCode != null" >
+        GOODS_CODE,
+      </if>
+      <if test="inGoodsNum != null" >
+        IN_GOODS_NUM,
+      </if>
+      <if test="inTime != null" >
+        IN_TIME,
+      </if>
+      <if test="currentGoodsLeftNum != null" >
+        CURRENT_GOODS_LEFT_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inGoodsNum != null" >
+        #{inGoodsNum,jdbcType=BIGINT},
+      </if>
+      <if test="inTime != null" >
+        #{inTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentGoodsLeftNum != null" >
+        #{currentGoodsLeftNum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.js.nj.entity.GoodsIn" >
+    update ims_goods_in
+    <set >
+      <if test="goodsCode != null" >
+        GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inGoodsNum != null" >
+        IN_GOODS_NUM = #{inGoodsNum,jdbcType=BIGINT},
+      </if>
+      <if test="inTime != null" >
+        IN_TIME = #{inTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.js.nj.entity.GoodsIn" >
+    update ims_goods_in
+    set GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      IN_GOODS_NUM = #{inGoodsNum,jdbcType=BIGINT},
+      IN_TIME = #{inTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getGoodsInLsit" resultMap="BaseResultMap" parameterType="com.js.nj.dto.RequestParamDto" >
+    select
+    igi.IN_GOODS_NUM, igi.IN_TIME,igi.CURRENT_GOODS_LEFT_NUM, ig.GOODS_NAME
+    from ims_goods_in igi
+    left join ims_goods ig on igi.GOODS_CODE = ig.GOODS_CODE
+    where 1=1
+    <if test="keyword != null">
+      AND ig.GOODS_NAME LIKE CONCAT('%',#{keyword},'%')
+    </if>
+  </select>
+</mapper>

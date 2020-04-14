@@ -19,25 +19,25 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login(){
-        return "login/index";
+        return "login/login";
     }
 
     @RequestMapping(value = "/login_in", method = RequestMethod.POST)
     public String login_in(User user, HttpServletRequest request, Model model){
-        User user1 = userService.validateUser(user.getUserName(), user.getUserPassword());
-        if(user1 == null){
-            return "login/index";
+        User userInfo = userService.validateUser(user.getUserName(), user.getUserPassword());
+        if(userInfo == null){
+            return "login/login";
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute(session.getId(), user1);
-        return "redirect:/student/test";
+        session.setAttribute("USER_INFO", userInfo);
+        return "redirect:/index";
 
     }
 
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request){
         request.getSession().removeAttribute(request.getSession().getId());
-        return "login/index";
+        return "login/login";
     }
 }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.js.nj.dao.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.js.nj.entity.Company" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="COMPANY_CODE" property="companyCode" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="MAIL" property="mail" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DEL" property="isDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_CODE, COMPANY_NAME, TELEPHONE, MAIL, ADDRESS, BUSINESS_SCOPE, CREATE_TIME,
+    UPDATE_TIME, IS_DEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_company
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ims_company
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.js.nj.entity.Company" >
+    insert into ims_company (ID, COMPANY_CODE, COMPANY_NAME, 
+      TELEPHONE, MAIL, ADDRESS,
+      BUSINESS_SCOPE, CREATE_TIME, UPDATE_TIME, 
+      IS_DEL)
+    values (#{id,jdbcType=BIGINT}, #{companyCode,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+      #{businessScope,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.js.nj.entity.Company" >
+    insert into ims_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyCode != null" >
+        COMPANY_CODE,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="mail != null" >
+        MAIL,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="businessScope != null" >
+        BUSINESS_SCOPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDel != null" >
+        IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.js.nj.entity.Company" >
+    update ims_company
+    <set >
+      <if test="companyCode != null" >
+        COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        MAIL = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        BUSINESS_SCOPE = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        IS_DEL = #{isDel,jdbcType=BIT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.js.nj.entity.Company" >
+    update ims_company
+    set COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      MAIL = #{mail,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      BUSINESS_SCOPE = #{businessScope,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DEL = #{isDel,jdbcType=BIT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getCompanyLsit" resultMap="BaseResultMap" parameterType="com.js.nj.dto.RequestParamDto" >
+    select
+    <include refid="Base_Column_List" />
+    from ims_company
+    where 1=1
+    <if test="keyword != null">
+      AND COMPANY_NAME LIKE CONCAT('%',#{keyword},'%')
+    </if>
+  </select>
+</mapper>

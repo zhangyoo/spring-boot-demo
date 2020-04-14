@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.js.nj.dao.IncomeMapper" >
+  <resultMap id="BaseResultMap" type="com.js.nj.entity.Income" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="INCOME_DESC" property="incomeDesc" jdbcType="VARCHAR" />
+    <result column="GOODS_CODE" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="INCOME_MONEY" property="incomeMoney" jdbcType="DECIMAL" />
+    <result column="INCOME_TIME" property="incomeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, INCOME_DESC, GOODS_CODE, INCOME_MONEY, INCOME_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_income
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ims_income
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.js.nj.entity.Income" >
+    insert into ims_income (ID, INCOME_DESC, GOODS_CODE, 
+      INCOME_MONEY, INCOME_TIME)
+    values (#{id,jdbcType=BIGINT}, #{incomeDesc,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, 
+      #{incomeMoney,jdbcType=DECIMAL}, #{incomeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.js.nj.entity.Income" >
+    insert into ims_income
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="incomeDesc != null" >
+        INCOME_DESC,
+      </if>
+      <if test="goodsCode != null" >
+        GOODS_CODE,
+      </if>
+      <if test="incomeMoney != null" >
+        INCOME_MONEY,
+      </if>
+      <if test="incomeTime != null" >
+        INCOME_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="incomeDesc != null" >
+        #{incomeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeMoney != null" >
+        #{incomeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeTime != null" >
+        #{incomeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.js.nj.entity.Income" >
+    update ims_income
+    <set >
+      <if test="incomeDesc != null" >
+        INCOME_DESC = #{incomeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeMoney != null" >
+        INCOME_MONEY = #{incomeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeTime != null" >
+        INCOME_TIME = #{incomeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.js.nj.entity.Income" >
+    update ims_income
+    set INCOME_DESC = #{incomeDesc,jdbcType=VARCHAR},
+      GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      INCOME_MONEY = #{incomeMoney,jdbcType=DECIMAL},
+      INCOME_TIME = #{incomeTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

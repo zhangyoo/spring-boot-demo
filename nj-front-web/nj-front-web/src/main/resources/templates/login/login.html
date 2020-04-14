@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>库存管理系统-登录</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link th:href="@{css/bootstrap.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/bootstrap-responsive.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/base.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="sectionContainer-A1 transitional-wide"> 
+<div class="container-fluid">
+	<div class="sectionWrap-A1">
+		<div class="border p10 mb10">
+			<div class="page-w clear">
+				<div class="L">
+					<img src="images/logo.gif" width="145" height="85" alt="" class="sectionLogo-A1 block"/>
+				</div>
+				<div class="L">
+					<div class="sectionForm-A1 sectionForm-A1-1">
+						<form class="form-horizontal" th:action="@{/login_in}" method="post">
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">用户名</label>
+								<div class="controls">
+								  <input type="text" id="inputEmail" name="userName" placeholder="用户名" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputPassword">密&nbsp;&nbsp;码</label>
+								<div class="controls">
+								  <input type="password" id="inputPassword" name="userPassword" placeholder="密码" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputYzm">验证码</label>
+								<div class="controls yzm">
+								  <input type="text" id="inputYzm" maxlength="4" class="text L mr10" />
+								  <img src="images/yzm.png" alt="" width="" height="" class="L"/>
+								  <a href="###" class="L ml10 mt5">换一张</a>
+								</div>
+							</div>
+							
+							 
+							<div class="control-group">
+								<div class="controls">
+								  <button type="submit" class="btn">登陆</button>
+								  <button type="reset" class="btn">重填</button>
+								</div>
+							</div>
+							
+							
+							
+						</form>
+							
+							
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="page-w sectionFoot-A1">
+			<p>COPYRIGHT© <a href="###">https://blog.csdn.net/u013521882</a>. ALL THRUSTS RESERVED.</p>
+		</div>
+	</div>
+	
+	
+</div>
+
+</body>
+</html>

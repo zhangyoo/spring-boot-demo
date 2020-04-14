@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.js.nj.dao.GoodsOutMapper" >
+  <resultMap id="BaseResultMap" type="com.js.nj.entity.GoodsOut" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="GOODS_CODE" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="OUT_GOODS_NUM" property="outGoodsNum" jdbcType="BIGINT" />
+    <result column="OUT_TIME" property="outTime" jdbcType="TIMESTAMP" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="CURRENT_GOODS_LEFT_NUM" property="currentGoodsLeftNum" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GOODS_CODE, OUT_GOODS_NUM, OUT_TIME, CURRENT_GOODS_LEFT_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_goods_out
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ims_goods_out
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.js.nj.entity.GoodsOut" >
+    insert into ims_goods_out (ID, GOODS_CODE, OUT_GOODS_NUM, 
+      OUT_TIME, CURRENT_GOODS_LEFT_NUM)
+    values (#{id,jdbcType=BIGINT}, #{goodsCode,jdbcType=VARCHAR}, #{outGoodsNum,jdbcType=BIGINT}, 
+      #{outTime,jdbcType=TIMESTAMP}, #{currentGoodsLeftNum,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.js.nj.entity.GoodsOut" >
+    insert into ims_goods_out
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="goodsCode != null" >
+        GOODS_CODE,
+      </if>
+      <if test="outGoodsNum != null" >
+        OUT_GOODS_NUM,
+      </if>
+      <if test="outTime != null" >
+        OUT_TIME,
+      </if>
+      <if test="currentGoodsLeftNum != null" >
+        CURRENT_GOODS_LEFT_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outGoodsNum != null" >
+        #{outGoodsNum,jdbcType=BIGINT},
+      </if>
+      <if test="outTime != null" >
+        #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentGoodsLeftNum != null" >
+        #{currentGoodsLeftNum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.js.nj.entity.GoodsOut" >
+    update ims_goods_out
+    <set >
+      <if test="goodsCode != null" >
+        GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outGoodsNum != null" >
+        OUT_GOODS_NUM = #{outGoodsNum,jdbcType=BIGINT},
+      </if>
+      <if test="outTime != null" >
+        OUT_TIME = #{outTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.js.nj.entity.GoodsOut" >
+    update ims_goods_out
+    set GOODS_CODE = #{goodsCode,jdbcType=VARCHAR},
+      OUT_GOODS_NUM = #{outGoodsNum,jdbcType=BIGINT},
+      OUT_TIME = #{outTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getGoodsOutLsit" resultMap="BaseResultMap" parameterType="com.js.nj.dto.RequestParamDto" >
+    select
+    igo.OUT_GOODS_NUM, igo.OUT_TIME,igo.CURRENT_GOODS_LEFT_NUM, ig.GOODS_NAME
+    from ims_goods_out igo
+    left join ims_goods ig on igo.GOODS_CODE = ig.GOODS_CODE
+    where 1=1
+    <if test="keyword != null">
+      AND ig.GOODS_NAME LIKE CONCAT('%',#{keyword},'%')
+    </if>
+  </select>
+</mapper>
