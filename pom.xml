@@ -36,7 +36,7 @@
 
         <!-- Test Library -->
         <mockito.version>2.18.3</mockito.version>
-        <assertj.version>3.9.1</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
 
         <!-- Maven Plugins -->
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
